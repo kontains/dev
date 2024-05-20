@@ -1,9 +1,11 @@
 import os
 import litellm
 import logging
-from litellm import completion
 from dataclasses import dataclass
 from typing import Optional
+
+from litellm import completion
+from litellm.exceptions import APIConnectionError
 
 # litellm.telemetry = False
 
@@ -11,6 +13,7 @@ from typing import Optional
 
 logger = logging.getLogger("LiteLLM")
 logger.disabled = True
+
 
 @dataclass(frozen=False)
 class ModelArguments:
@@ -63,13 +66,13 @@ class AnthropicModel:
 
     def query(self, messages: list[dict[str, str]], system_message: str = "") -> str:
         model_completion = completion(
-                messages=[{"role": "system", "content": system_message}] + messages,
-                max_tokens=self.model_metadata["max_tokens"],
-                model=self.api_model,
-                temperature=self.args.temperature,
-                stop=["</COMMAND>"],
-            )
-        
+            messages=[{"role": "system", "content": system_message}] + messages,
+            max_tokens=self.model_metadata["max_tokens"],
+            model=self.api_model,
+            temperature=self.args.temperature,
+            stop=["</COMMAND>"],
+        )
+
         response = model_completion.choices[0].message.content.rstrip("</COMMAND>")
         return response + "</COMMAND>"
 
@@ -105,13 +108,13 @@ class OpenAiModel:
 
     def query(self, messages: list[dict[str, str]], system_message: str = "") -> str:
         model_completion = completion(
-                messages=[{"role": "system", "content": system_message}] + messages,
-                max_tokens=self.model_metadata["max_tokens"],
-                model=self.api_model,
-                temperature=self.args.temperature,
-                stop=["</COMMAND>"],
-            )
-        
+            messages=[{"role": "system", "content": system_message}] + messages,
+            max_tokens=self.model_metadata["max_tokens"],
+            model=self.api_model,
+            temperature=self.args.temperature,
+            stop=["</COMMAND>"],
+        )
+
         response = model_completion.choices[0].message.content.rstrip("</COMMAND>")
         return response + "</COMMAND>"
 
@@ -139,13 +142,13 @@ class GroqModel:
 
     def query(self, messages: list[dict[str, str]], system_message: str = "") -> str:
         model_completion = completion(
-                messages=[{"role": "system", "content": system_message}] + messages,
-                max_tokens=self.model_metadata["max_tokens"],
-                model=self.api_model,
-                temperature=self.args.temperature,
-                stop=["</COMMAND>"],
-            )
-        
+            messages=[{"role": "system", "content": system_message}] + messages,
+            max_tokens=self.model_metadata["max_tokens"],
+            model=self.api_model,
+            temperature=self.args.temperature,
+            stop=["</COMMAND>"],
+        )
+
         response = model_completion.choices[0].message.content.rstrip("</COMMAND>")
         return response + "</COMMAND>"
 
@@ -154,22 +157,24 @@ class OllamaModel:
 
     def __init__(self, args: ModelArguments):
         self.args = args
-        self.api_model = args.model
+        self.api_model = f'ollama/{args.model_name}'
         self.model_metadata = {
             "max_tokens": 4096,
         }
-
         self.api_key = "ollama"
 
     def query(self, messages: list[dict[str, str]], system_message: str = "") -> str:
+        for msg in messages:
+            if 'content' not in msg:
+                raise ValueError(f'OllamaModel: wrong message format for {msg}\nMissing "content" key')
+
         model_completion = completion(
-                messages=[{"role": "system", "content": system_message}] + messages,
-                max_tokens=self.model_metadata["max_tokens"],
-                model=self.api_model,
-                temperature=self.args.temperature,
-                stop=["</COMMAND>"],
-                api_base="http://localhost:11434"
-            )
-        
-        response = model_completion.choices[0].message.content.rstrip("</COMMAND>")
-        return response + "</COMMAND>"
+            messages=[{"role": "system", "content": system_message}] + messages,
+            max_tokens=self.model_metadata["max_tokens"],
+            model=self.api_model,
+            temperature=self.args.temperature,
+            stop=["</COMMAND>"],
+            api_base="http://localhost:11434"
+        )
+
+        return model_completion.choices[0].message.content.rstrip("</COMMAND>") + "</COMMAND>"
