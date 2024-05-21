@@ -1,32 +1,23 @@
 
 <!-- PROJECT LOGO -->
 <div align="center">
-  <h1 align="center">Devon: An open-source pair programmer</h1>
-</div>
-<div align="center">
-  <a href="https://github.com/entropy-research/Devon/graphs/contributors"><img src="https://img.shields.io/github/contributors/entropy-research/devon?style=for-the-badge&color=lime" alt="Contributors"></a>
-  <a href="https://github.com/entropy-research/Devon/network/members"><img src="https://img.shields.io/github/forks/entropy-research/devon?style=for-the-badge&color=orange" alt="Forks"></a>
-  <a href="https://github.com/entropy-research/Devon/stargazers"><img src="https://img.shields.io/github/stars/entropy-research/devon?style=for-the-badge&color=yellow" alt="Stargazers"></a>
-  <a href="https://github.com/entropy-research/Devon/issues"><img src="https://img.shields.io/github/issues/entropy-research/devon?style=for-the-badge&color=red" alt="Issues"></a>
-  <br/>
-  <a href="https://github.com/entropy-research/Devon/blob/main/LICENSE"><img src="https://img.shields.io/github/license/entropy-research/devon?style=for-the-badge&color=blue" alt="Apache 2.0 License"></a>
-  <a href="https://discord.gg/p5YpZ5vjd9"><img src="https://img.shields.io/badge/Discord-Join%20Us-purple?logo=discord&logoColor=white&style=for-the-badge" alt="Join our Discord community"></a>
-  <br/>
-
-https://github.com/entropy-research/Devon/assets/61808204/d42a8b9a-0211-4624-9804-d24df1d4dbf6
+  <h1 align="center">dev assistant</h1>
 </div>
 
 # Installation
 
 ## Prerequisites
 
-1. `node.js` and `npm`
-2. `pipx`, if you don't have this go [here](https://pipx.pypa.io/stable/installation/)
-3. API Key <samp>(just one is required)</samp>
+- `node.js` and `npm`
+
+- `pipx`, if you don't have this go [here](https://pipx.pypa.io/stable/installation/)
+
+- API Key <samp>(just one is required)</samp>
    - [**Anthropic**](https://console.anthropic.com/settings/keys)
     - [**OpenAI**](https://platform.openai.com/api-keys)
     - [**Groq**](https://console.groq.com/keys) (not released in package yet, run locally)
-> We're currently working on supporting Windows! (Let us know if you can help)
+
+- Checking Windows support.
 
 ## Installation commands
 
