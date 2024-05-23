@@ -10,7 +10,7 @@
 
 - `node.js`, `npm`, and `pip`  (checking Windows support)
 
-## Instal
+## Install
 
 ** Or to install using `pip` + `npm`:*
 
@@ -25,7 +25,7 @@ This installs the Python backend, and the cli command to run the tool.
 
 > "Don't worry, the agent will be able to only access files and folders in the directory you started it from. You can also correct it while it's performing actions."
 
-## Note:  "event type (i.e. "tool call") and failure telemetry to solve bugs and improve the user experience"
+# Note:  "event type (i.e. "tool call") and failure telemetry to solve bugs and improve the user experience"
 To disable telemetry, set the environment variable `DEVON_TELEMETRY_DISABLED` to `true` 
 
 ```bash
@@ -78,13 +78,11 @@ devon --debug
 - Bug fixing
 - Architecture exploration
 
-### Limitations
-- Minimal functionality for non-Python languages
-- Sometimes have to specify the file where you want the change to happen
-
 # Progress
 
-## Current development priorities
+- Testing Windows Install
+
+# Current development priorities
 
 1. Improve context gathering and code indexing abilities ex:
     - Adding memory modules
@@ -93,8 +91,6 @@ devon --debug
     - a) Reduce end user cost and
     - b) Reduce end user latency
 3. Introduce Electron app and new UI
-
-
 
 # License
 
