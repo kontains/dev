@@ -4,28 +4,13 @@
   <h1 align="center">dev assistant</h1>
 </div>
 
-# Installation
+# Windows Installation
 
 ## Prerequisites
 
-- `node.js` and `npm`
+- `node.js`, `npm`, and `pip`  (checking Windows support)
 
-- `pipx`, if you don't have this go [here](https://pipx.pypa.io/stable/installation/)
-
-- API Key <samp>(just one is required)</samp>
-   - [**Anthropic**](https://console.anthropic.com/settings/keys)
-    - [**OpenAI**](https://platform.openai.com/api-keys)
-    - [**Groq**](https://console.groq.com/keys) (not released in package yet, run locally)
-
-- Checking Windows support.
-
-## Installation commands
-
-To install, simply run:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/entropy-research/Devon/main/install.sh | bash
-```
+## Instal
 
 ** Or to install using `pip` + `npm`:*
 
@@ -38,23 +23,51 @@ This installs the Python backend, and the cli command to run the tool.
 
 # Running the agent
 
-### Note: Currently, "event type (i.e. "tool call") and failure telemetry to solve bugs and improve the user experience"
+> "Don't worry, the agent will be able to only access files and folders in the directory you started it from. You can also correct it while it's performing actions."
 
+## Note:  "event type (i.e. "tool call") and failure telemetry to solve bugs and improve the user experience"
 To disable telemetry, set the environment variable `DEVON_TELEMETRY_DISABLED` to `true` 
+
 ```bash
 export DEVON_TELEMETRY_DISABLED=true
 ```
 
-> "Don't worry, the agent will be able to only access files and folders in the directory you started it from. You can also correct it while it's performing actions."
+Run in *local* mode:  [!WARNING]
 
-To run in *debug* mode, the command is:
+> The current version of local model support is not mature, proceed with caution, and expect the performance to degrade significantly compared to the other options.
+
+1. Get deepseek running with [ollama](https://ollama.com/library/deepseek-coder:6.7b)
+
+2. Start the local ollama server by running
+```
+ollama run deepseek-coder:6.7b
+```
+
+4. Then configure devon to use the model
 ```bash
-devon --debug
+devon configure
+
+Configuring Devon CLI...
+? Select the model name: 
+  claude-opus 
+  gpt4-o 
+  llama-3-70b 
+❯ ollama/deepseek-coder:6.7b
+```
+
+4. And finally, run it with:
+```
+devon --api_key=FOSS
 ```
 
 For a list of all commands available:
 ```bash
 devon --help
+```
+
+To run in *debug* mode, the command is:
+```bash
+devon --debug
 ```
 
 # Features
